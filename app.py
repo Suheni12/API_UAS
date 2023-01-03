@@ -7,13 +7,13 @@ app.config["DEBUG"] = True
 @app.route('/', methods=['GET'])
 def hello():
     data = [{
-        'nama': 'Suheni',
-        'pekerjaan': 'RR',
+        'nama': 'Muhamad Mustaqim',
+        'pekerjaan': 'Programing',
         'usia': '21',
     }]
     return make_response(jsonify({'data': data}), 200)
 
-@app.route('/karyawan', methods=['GET','POST','PUT','DELETE'])
+@app.route('/karyawan1', methods=['GET','POST','PUT','DELETE'])
 def mahasiswa():
     try: 
         # Panggil class model database
@@ -24,10 +24,10 @@ def mahasiswa():
         if request.method == 'GET':
             id_ = request.args.get("id")
             if id_:
-                query = "SELECT * FROM data_karyawan where id = %s "
+                query = "SELECT * FROM data_karyawan1 where id = %s "
                 values = (id_,)
             else:
-                query = "SELECT * FROM data_karyawan"
+                query = "SELECT * FROM data_karyawan1"
             data = dt.get_data(query, values)
 
         # Jika Method POST
@@ -36,7 +36,7 @@ def mahasiswa():
             nama = datainput['nama']
             pekerjaan = datainput['pekerjaan']
             usia = datainput['usia']
-            query = "INSERT INTO data_karyawan (nama, pekerjaan, usia) values (%s,%s,%s) "
+            query = "INSERT INTO data_karyawan1 (nama, pekerjaan, usia) values (%s,%s,%s) "
             values = (nama, pekerjaan, usia,)
             dt.insert_data(query, values)  
             data = [{
@@ -45,7 +45,7 @@ def mahasiswa():
         
         #Jika Method PUT
         elif request.method == 'PUT':
-            query = "UPDATE data_karyawan SET id = %s "
+            query = "UPDATE data_karyawan1 SET id = %s "
             datainput = request.json
             id_ = datainput['id']
             values += (id_,)
@@ -71,7 +71,7 @@ def mahasiswa():
 
             # Selain itu adalah DELETE, bila ada method selain keempat ini maka dipastikan akan langsung error karena method tidak di assign.
         else:
-                query = "DELETE FROM data_karyawan id = %s "
+                query = "DELETE FROM data_karyawan1 id = %s "
                 id_ = request.args.get("id")
                 values = (id_,)
                 dt.insert_data(query, values)
